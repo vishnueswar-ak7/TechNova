@@ -1,4 +1,4 @@
-const { GoogleGenAI } = require('@google/genai');
+import { GoogleGenAI } from '@google/genai';
 
 const LANGUAGE_NAMES = {
   en: 'English',
@@ -11,7 +11,7 @@ const LANGUAGE_NAMES = {
   bn: 'Bengali'
 };
 
-module.exports = async (req, res) => {
+export default async (req, res) => {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method Not Allowed' });
 
   try {

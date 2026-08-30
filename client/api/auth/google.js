@@ -1,8 +1,8 @@
-const { OAuth2Client } = require('google-auth-library');
-const jwt = require('jsonwebtoken');
-const cookie = require('cookie');
+import { OAuth2Client } from 'google-auth-library';
+import jwt from 'jsonwebtoken';
+import cookie from 'cookie';
 
-module.exports = async (req, res) => {
+export default async (req, res) => {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method Not Allowed' });
 
   try {

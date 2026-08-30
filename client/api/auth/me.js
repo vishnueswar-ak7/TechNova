@@ -1,7 +1,7 @@
-const jwt = require('jsonwebtoken');
-const cookie = require('cookie');
+import jwt from 'jsonwebtoken';
+import cookie from 'cookie';
 
-module.exports = (req, res) => {
+export default (req, res) => {
   if (req.method !== 'GET') return res.status(405).json({ error: 'Method Not Allowed' });
 
   const cookies = cookie.parse(req.headers.cookie || '');
