@@ -54,7 +54,7 @@ function AppContent() {
 
 export default function App() {
   // Use env var for Google Client ID (must match backend)
-  const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID || 'missing-client-id';
+  const clientId = (import.meta.env.VITE_GOOGLE_CLIENT_ID || 'missing-client-id').trim();
 
   return (
     <GoogleOAuthProvider clientId={clientId}>
