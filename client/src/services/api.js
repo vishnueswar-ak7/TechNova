@@ -47,10 +47,19 @@ export async function logout() {
  * Analyzes a screenshot by sending it to the server.
  */
 export async function analyzeScreenshot(file, language = 'en', mode = 'stuck', signal) {
-  const formData = new FormData();
-  formData.append('image', file);
-  formData.append('language', language);
-  formData.append('mode', mode);
+  // Convert File to Base64 for Vercel Serverless compatibility (bypasses multer)
+  const base64Image = await new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result.split(',')[1]); // Strip data URL prefix
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+
+  const payload = {
+    image: base64Image,
+    language,
+    mode
+  };
 
   const timeoutController = new AbortController();
   const timeoutId = setTimeout(() => timeoutController.abort(), REQUEST_TIMEOUT_MS);
@@ -62,7 +71,8 @@ export async function analyzeScreenshot(file, language = 'en', mode = 'stuck', s
   try {
     const res = await fetch(`${API_BASE}/analyze`, {
       method: 'POST',
-      body: formData,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
       signal: mergedSignal,
     });
     clearTimeout(timeoutId);
