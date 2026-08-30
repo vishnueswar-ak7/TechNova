@@ -1,8 +1,10 @@
-# ScreenSaathi 🙏
+# Trust Wise 🙏
 
 **AI-powered screen companion for elderly users (60+)**
 
-ScreenSaathi helps elderly users who get stuck on confusing digital interfaces (banking apps, email, government portals). Upload or capture a screenshot → get ONE simple, spoken next action in Tamil, English, or Hindi.
+Trust Wise (formerly ScreenSaathi) helps elderly users who get stuck on confusing digital interfaces (banking apps, email, government portals). Upload or capture a screenshot → get ONE simple, spoken next action in multiple languages.
+
+🔗 **Live Demo:** [https://tech-nova-client.vercel.app](https://tech-nova-client.vercel.app)
 
 ---
 
@@ -10,32 +12,43 @@ ScreenSaathi helps elderly users who get stuck on confusing digital interfaces (
 
 | Feature | Status |
 |---|---|
-| 📸 Screenshot upload / camera capture | ✅ MVP |
-| 🤖 AI vision analysis (Gemini 1.5 Flash) | ✅ MVP |
-| 🔊 Text-to-speech in 3 languages | ✅ MVP |
-| ⚠️ Scam detection (AI + rule-based) | ✅ MVP |
-| 🤔 Low-confidence escalation | ✅ MVP |
-| ↩ UndoMe flow | ✅ MVP |
-| 📞 Family notification (console stub) | ✅ MVP |
-| 🌐 Tamil / English / Hindi responses | ✅ MVP |
+| 🔐 Google OAuth 2.0 Secure Login | ✅ Complete |
+| 📸 Screenshot upload / Live Screen Share | ✅ Complete |
+| 🎙️ Voice Command Input | ✅ Complete |
+| 🤖 AI vision analysis (Gemini 3.6 Flash) | ✅ Complete |
+| 🔊 Text-to-speech in 8 languages | ✅ Complete (EN, TA, HI, TE, ML, KN, MR, BN) |
+| ⚠️ Scam detection (AI + rule-based) | ✅ Complete |
+| ↩ UndoMe flow ("What did I just do?") | ✅ Complete |
+| 📞 Family notification (Nodemailer Email) | ✅ Complete |
+| 👓 High Contrast Accessibility Mode | ✅ Complete |
+| 📱 PWA (Installable on Mobile/Desktop) | ✅ Complete |
 
 ---
 
-## Quick Start
+## Quick Start (Local Development)
 
 ### Prerequisites
 - Node.js 18+
 - A [Google Gemini API key](https://aistudio.google.com/app/apikey) (free tier works)
+- Google Cloud OAuth Client ID
 
 ### Setup
 
 ```bash
 # 1. Clone / download the project
-cd screensaathi
+git clone https://github.com/vishnueswar-ak7/TechNova.git
+cd TechNova
 
-# 2. Copy env file and add your API key
-cp .env.example .env
-# Edit .env and set GEMINI_API_KEY=your_key_here
+# 2. Setup Environment Variables
+# Create a .env file in the client folder:
+# client/.env
+VITE_GOOGLE_CLIENT_ID=your_google_client_id.apps.googleusercontent.com
+
+# Create a .env file in the server folder (if running locally):
+# server/.env
+GEMINI_API_KEY=your_gemini_key
+JWT_SECRET=your_secure_random_string
+GOOGLE_CLIENT_ID=your_google_client_id.apps.googleusercontent.com
 
 # 3. Install all dependencies
 npm install
@@ -45,101 +58,58 @@ npm run dev
 ```
 
 The app will be available at **http://localhost:5173**
-
 The API server runs at **http://localhost:3001**
 
 ---
 
 ## Environment Variables
 
-| Variable | Required | Default | Description |
+| Variable | Location | Required | Description |
 |---|---|---|---|
-| `GEMINI_API_KEY` | ✅ Yes | — | Google Gemini API key |
-| `PORT` | No | `3001` | Server port |
-| `ALLOWED_ORIGIN` | No | `http://localhost:5173` | CORS origin |
-| `CONFIDENCE_THRESHOLD` | No | `0.55` | Below this → escalation |
-| `MONEY_CONFIDENCE_THRESHOLD` | No | `0.80` | Money screens need higher confidence |
+| `VITE_GOOGLE_CLIENT_ID` | `client/.env` & Vercel | ✅ Yes | Google OAuth Client ID for frontend popup |
+| `GEMINI_API_KEY` | `server/.env` & Vercel | ✅ Yes | Google Gemini API key for screenshot analysis |
+| `JWT_SECRET` | `server/.env` & Vercel | ✅ Yes | Random string to encrypt user session cookies |
+| `GOOGLE_CLIENT_ID`| `server/.env` & Vercel | ✅ Yes | Same as VITE_... used to verify backend tokens |
 
 ---
 
-## Project Structure
+## Project Structure (Vercel Serverless)
+
+The project has been upgraded to support seamless, zero-config deployment on Vercel using Serverless Functions.
 
 ```
-screensaathi/
-├── client/          # React + Vite frontend
-│   └── src/
-│       ├── components/   # Reusable UI atoms
-│       ├── screens/      # Full-page screen components
-│       ├── hooks/        # useAnalyze, useTTS, useSpeechInput, useLanguage
-│       ├── services/     # api.js (all fetch calls)
-│       └── context/      # AppContext (global state)
-└── server/          # Node.js + Express backend
-    ├── routes/       # Route definitions only
-    ├── controllers/  # Request handling logic
-    ├── services/     # visionService, scamDetector, notifyService
-    ├── middleware/   # upload, rateLimiter, errorHandler
-    └── config/       # env validation
+TechNova/
+├── client/              # React + Vite frontend (Vercel Root)
+│   ├── api/             # Vercel Serverless Backend Functions
+│   │   ├── auth/        # Login, Logout, Me endpoints
+│   │   ├── analyze.js   # Gemini Vision AI logic
+│   │   └── notify.js    # Nodemailer email alerts
+│   └── src/             # React Application
+│       ├── screens/     # LoginScreen, HomeScreen
+│       ├── hooks/       # useLanguage, useSpeechInput, useTTS
+│       └── services/    # api.js
+└── server/              # Legacy / Local Dev Express Backend
 ```
 
 ---
 
-## API
+## API & Vercel Serverless
+
+When deployed to Vercel, the backend automatically runs via Serverless functions (no separate Render/Heroku backend required). 
 
 ### `POST /api/analyze`
-Analyzes a screenshot and returns structured AI advice.
-
-**Request:** `multipart/form-data`
-- `image` — JPEG/PNG/WEBP screenshot (max 5MB)
-- `language` — `en` | `ta` | `hi`
-- `mode` — `stuck` | `undome`
-
-**Response types:**
-- `{ type: "result", reassurance, explanation, next_action, confidence }`
-- `{ type: "scam_warning", scam_flag: true, scam_reason, escalation_message }`
-- `{ type: "escalation", escalate: true, escalation_message, confidence }`
+Analyzes a screenshot (sent as base64 JSON) and returns structured AI advice.
 
 ### `POST /api/notify`
-Sends a text summary to a family contact (console stub in MVP).
+Sends an email summary to a family contact using Nodemailer.
 
-### `GET /api/health`
-Returns `{ status: "ok" }`.
+### `POST /api/auth/google`
+Verifies the Google OAuth credential and sets a 7-day HttpOnly secure session cookie.
 
 ---
 
 ## Privacy & Safety
 
-- **Screenshots are NEVER stored** — processed in-memory only, garbage collected immediately
-- **Family notifications** send only a generated text summary, never the image
-- **No user data** is stored, logged, or shared with third parties
-- **Scam detection** runs on every request before returning any action advice
-
----
-
-## Extending the Notify Feature
-
-The family notification is a console stub in MVP. To add real delivery:
-
-**Email (SendGrid):**
-```bash
-npm install @sendgrid/mail --workspace=server
-# Then uncomment the SendGrid block in server/services/notifyService.js
-# Add SENDGRID_API_KEY to .env
-```
-
-**SMS (Twilio):**
-```bash
-npm install twilio --workspace=server
-# Then uncomment the Twilio block in server/services/notifyService.js
-# Add TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_FROM_NUMBER to .env
-```
-
----
-
-## Production Build
-
-```bash
-npm run build        # Builds client to client/dist/
-npm run start        # Starts production server
-```
-
-Serve `client/dist/` as static files from the Express server or a CDN.
+- **Screenshots are NEVER stored** — processed in-memory only, discarded immediately after Gemini analysis.
+- **No user data sold** — Sessions are encrypted via HttpOnly cookies.
+- **Scam detection** runs on every request before returning any action advice to protect vulnerable users.
