@@ -19,10 +19,10 @@ export default async (req, res) => {
     });
 
     const info = await transporter.sendMail({
-      from: '"Trustwise Alerts" <alert@trustwise.app>',
+      from: '"Trust Wise Alerts" <alert@trustwise.app>',
       to: contactEmail || 'family@example.com',
-      subject: '🚨 Trustwise Alert: Assistance Needed',
-      text: `Trustwise Alert:\n\nThe user might need help.\nAI Analysis: ${summary}\n\nPhone contact: ${contactPhone || 'Not provided'}`,
+      subject: '🚨 Trust Wise Alert: Assistance Needed',
+      text: `Trust Wise Alert:\n\nThe user might need help.\nAI Analysis: ${summary}\n\nPhone contact: ${contactPhone || 'Not provided'}`,
     });
 
     console.log('[notify] Ethereal URL:', nodemailer.getTestMessageUrl(info));

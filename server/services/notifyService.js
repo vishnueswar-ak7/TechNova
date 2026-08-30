@@ -34,7 +34,7 @@ async function setupTransporter() {
  */
 async function sendNotification({ contactEmail, contactPhone, summary }) {
   const timestamp = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
-  const message = `[Trustwise] Family Alert — ${timestamp}\n\n${summary}\n\nThis message was sent by Trustwise on behalf of your family member.`;
+  const message = `[Trust Wise] Family Alert — ${timestamp}\n\n${summary}\n\nThis message was sent by Trust Wise on behalf of your family member.`;
 
   try {
     const mailer = await setupTransporter();
@@ -43,9 +43,9 @@ async function sendNotification({ contactEmail, contactPhone, summary }) {
     const toAddress = contactEmail || `${contactPhone}@example.com`;
     
     const info = await mailer.sendMail({
-      from: '"Trustwise Alerts" <alert@trustwise.app>',
+      from: '"Trust Wise Alerts" <alert@trustwise.app>',
       to: toAddress,
-      subject: "Trustwise Alert: Family Member Needs Help",
+      subject: "Trust Wise Alert: Family Member Needs Help",
       text: message,
     });
 

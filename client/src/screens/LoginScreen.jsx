@@ -44,7 +44,7 @@ export default function LoginScreen() {
         {/* App logo + name */}
         <div className="flex flex-col items-center gap-3">
           <span className="text-7xl select-none" role="img" aria-label="Folded hands">🙏</span>
-          <h1 className="text-4xl font-bold text-slate-100">Trustwise</h1>
+          <h1 className="text-4xl font-bold text-slate-100">Trust Wise</h1>
           <p className="text-slate-400 text-lg text-center font-medium">Your helpful screen companion</p>
         </div>
 

@@ -9,8 +9,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
       manifest: {
-        name: 'Trustwise',
-        short_name: 'Trustwise',
+        name: 'Trust Wise',
+        short_name: 'Trust Wise',
         description: 'AI Screen Companion for Elderly Users',
         theme_color: '#0f172a',
         background_color: '#0f172a',
