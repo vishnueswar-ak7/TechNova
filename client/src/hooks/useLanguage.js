@@ -1,15 +1,10 @@
-/**
- * useLanguage — provides all UI copy strings in Tamil, English, and Hindi.
- *
- * This is an in-memory constant map — no translation library needed.
- * All strings are written to be simple and suitable for elderly users.
- */
-
 export const STRINGS = {
   en: {
-    appName: 'ScreenSaathi',
+    appName: 'Trustwise',
     tagline: 'Your helpful screen companion 🙏',
     showScreen: '📸 Show Your Screen',
+    liveScreen: '🔴 Share Live Screen',
+    speak: '🎤 Speak',
     undoMe: '↩ What Did I Just Do?',
     changeLanguage: 'Change Language',
     analyzing: 'Looking at your screen…',
@@ -39,7 +34,7 @@ export const STRINGS = {
     notifySent: '✅ Your family has been notified.',
     notifyError: 'Could not send. Please try again.',
     consentTitle: 'Before we start',
-    consentText: 'ScreenSaathi helps you understand confusing screens. Your screenshots are analyzed and immediately deleted — never stored. We will never share your information.',
+    consentText: 'Trustwise helps you understand confusing screens. Your screenshots are analyzed and immediately deleted — never stored. We will never share your information.',
     consentButton: 'I Understand — Let\'s Begin',
     errorTitle: 'Something went wrong',
     retry: 'Try Again',
@@ -48,13 +43,16 @@ export const STRINGS = {
     bankHelpline: '1800-XXX-XXXX',
     confidenceLabel: 'Confidence',
     imageTooLarge: 'Image too large. Please use a screenshot under 5 MB.',
-    invalidFile: 'Please upload a photo or screenshot (JPEG, PNG, or WEBP).',
+    invalidFile: 'Please upload a photo or screenshot.',
     noInternet: 'No internet connection. Please check your WiFi.',
+    highContrastMode: 'High Contrast',
   },
   ta: {
-    appName: 'ScreenSaathi',
+    appName: 'Trustwise',
     tagline: 'உங்கள் திரை உதவியாளர் 🙏',
     showScreen: '📸 உங்கள் திரையைக் காட்டுங்கள்',
+    liveScreen: '🔴 நேரடி திரையைப் பகிரவும்',
+    speak: '🎤 பேசுங்கள்',
     undoMe: '↩ நான் என்ன செய்தேன்?',
     changeLanguage: 'மொழி மாற்று',
     analyzing: 'உங்கள் திரையைப் பார்க்கிறேன்…',
@@ -63,7 +61,7 @@ export const STRINGS = {
     reassurance: 'அமைதி',
     whatItMeans: 'இந்த திரை என்ன சொல்கிறது',
     whatToDo: 'இப்போது என்ன செய்ய வேண்டும் →',
-    readAloud: '🔊 声に出して読む',
+    readAloud: '🔊 சத்தமாக வாசிக்கவும்',
     stopReading: '⏸ நிறுத்து',
     notifyFamily: '📞 குடும்பத்தினரை அறிவிக்கவும்',
     tryAgain: '📸 மீண்டும் முயற்சிக்கவும்',
@@ -84,7 +82,7 @@ export const STRINGS = {
     notifySent: '✅ குடும்பத்தினர் அறிவிக்கப்பட்டனர்.',
     notifyError: 'அனுப்ப முடியவில்லை. மீண்டும் முயற்சிக்கவும்.',
     consentTitle: 'தொடங்குவதற்கு முன்',
-    consentText: 'ScreenSaathi உங்களுக்கு திரைகளை புரிந்துகொள்ள உதவுகிறது. உங்கள் screenshots பகுப்பாய்வு செய்யப்பட்டு உடனடியாக அழிக்கப்படும் — சேமிக்கப்படாது.',
+    consentText: 'Trustwise உங்களுக்கு திரைகளை புரிந்துகொள்ள உதவுகிறது. உங்கள் screenshots பகுப்பாய்வு செய்யப்பட்டு உடனடியாக அழிக்கப்படும் — சேமிக்கப்படாது.',
     consentButton: 'புரிந்தது — தொடங்குவோம்',
     errorTitle: 'ஏதோ தவறு நடந்தது',
     retry: 'மீண்டும் முயற்சிக்கவும்',
@@ -95,11 +93,14 @@ export const STRINGS = {
     imageTooLarge: 'படம் மிகவும் பெரியது. 5 MB-க்கும் குறைவான படம் பயன்படுத்துங்கள்.',
     invalidFile: 'JPEG, PNG, அல்லது WEBP படம் பதிவேற்றவும்.',
     noInternet: 'இணைய இணைப்பு இல்லை. WiFi சரிபார்க்கவும்.',
+    highContrastMode: 'அதிக மாறுபாடு',
   },
   hi: {
-    appName: 'ScreenSaathi',
+    appName: 'Trustwise',
     tagline: 'आपका स्क्रीन साथी 🙏',
     showScreen: '📸 अपनी स्क्रीन दिखाएं',
+    liveScreen: '🔴 लाइव स्क्रीन साझा करें',
+    speak: '🎤 बोलें',
     undoMe: '↩ मैंने अभी क्या किया?',
     changeLanguage: 'भाषा बदलें',
     analyzing: 'आपकी स्क्रीन देख रहे हैं…',
@@ -129,7 +130,7 @@ export const STRINGS = {
     notifySent: '✅ आपके परिवार को सूचित कर दिया गया।',
     notifyError: 'भेज नहीं सका। दोबारा कोशिश करें।',
     consentTitle: 'शुरू करने से पहले',
-    consentText: 'ScreenSaathi आपको स्क्रीन समझने में मदद करता है। आपके screenshots का विश्लेषण होता है और तुरंत हटा दिया जाता है — कभी सेव नहीं किया जाता।',
+    consentText: 'Trustwise आपको स्क्रीन समझने में मदद करता है। आपके screenshots का विश्लेषण होता है और तुरंत हटा दिया जाता है — कभी सेव नहीं किया जाता।',
     consentButton: 'समझ गया — चलिए शुरू करते हैं',
     errorTitle: 'कुछ गलत हो गया',
     retry: 'फिर कोशिश करें',
@@ -140,12 +141,15 @@ export const STRINGS = {
     imageTooLarge: 'छवि बहुत बड़ी है। 5 MB से कम का screenshot उपयोग करें।',
     invalidFile: 'कृपया JPEG, PNG, या WEBP फ़ोटो अपलोड करें।',
     noInternet: 'इंटरनेट नहीं है। WiFi जांचें।',
+    highContrastMode: 'उच्च कंट्रास्ट',
   },
+  te: { appName: 'Trustwise', tagline: 'మీ స్క్రీన్ సహాయకుడు 🙏', showScreen: '📸 స్క్రీన్ చూపించండి', liveScreen: '🔴 లైవ్ స్క్రీన్ భాగస్వామ్యం చేయండి', speak: '🎤 మాట్లాడండి', undoMe: '↩ నేను ఏం చేశాను?', changeLanguage: 'భాష మార్చండి', analyzing: 'స్క్రీన్ పరిశీలిస్తున్నాము…', analyzingSubtext: 'దయచేసి వేచి ఉండండి 🙏', cancel: 'రద్దు చేయి', reassurance: 'భరోసా', whatItMeans: 'ఈ స్క్రీన్ అర్థం', whatToDo: 'ఇప్పుడు ఏమి చేయాలి →', readAloud: '🔊 చదివి వినిపించు', stopReading: '⏸ ఆపు', notifyFamily: '📞 కుటుంబానికి తెలియజేయండి', tryAgain: '📸 మళ్లీ ప్రయత్నించండి', goHome: '🏠 వెనక్కి వెళ్ళు', scamWarningTitle: '⚠️ ఆగండి - ఇది సురక్షితం కాకపోవచ్చు', scamWarningSubtext: 'ఎటువంటి వివరాలు నమోదు చేయవద్దు.', callBank: '📞 బ్యాంక్ హెల్ప్‌లైన్‌కు కాల్ చేయండి', escalationTitle: 'నాకు కచ్చితంగా తెలియదు', escalationSubtext: 'దీనికి బదులుగా ఇలా చేయండి:', callFamily: '📞 కుటుంబ సభ్యులకు కాల్ చేయండి', tryBetterPhoto: '📸 స్పష్టమైన ఫోటో తీయండి', notifyFamilyTitle: 'కుటుంబానికి తెలియజేయండి', notifyFamilyDesc: 'మీ స్క్రీన్‌షాట్ షేర్ చేయబడదు.', contactEmail: 'కుటుంబ ఈమెయిల్', contactPhone: 'కుటుంబ ఫోన్ నంబర్', send: 'పంపు', sending: 'పంపుతున్నాము…', notifySent: '✅ కుటుంబానికి మెసేజ్ పంపబడింది.', notifyError: 'పంపడం విఫలమైంది.', consentTitle: 'ప్రారంభించడానికి ముందు', consentText: 'మీ స్క్రీన్‌షాట్‌లు వెంటనే తొలగించబడతాయి. ఎప్పుడూ సేవ్ చేయబడవు.', consentButton: 'అర్థమైంది - ప్రారంభిద్దాం', errorTitle: 'ఏదో తప్పు జరిగింది', retry: 'మళ్లీ ప్రయత్నించండి', undomeTitle: 'ఇదే జరిగింది', undomeSubtext: 'మీరు సురక్షితంగా ఉన్నారు.', bankHelpline: '1800-XXX-XXXX', confidenceLabel: 'నమ్మకం', imageTooLarge: 'ఫోటో సైజు ఎక్కువ.', invalidFile: 'దయచేసి సరైన ఫోటో అప్‌లోడ్ చేయండి.', noInternet: 'ఇంటర్నెట్ లేదు.', highContrastMode: 'హై కాంట్రాస్ట్' },
+  ml: { appName: 'Trustwise', tagline: 'നിങ്ങളുടെ സ്ക്രീൻ സഹായി 🙏', showScreen: '📸 സ്ക്രീൻ കാണിക്കുക', liveScreen: '🔴 ലൈവ് സ്ക്രീൻ പങ്കിടുക', speak: '🎤 സംസാരിക്കുക', undoMe: '↩ ഞാൻ എന്ത് ചെയ്തു?', changeLanguage: 'ഭാഷ മാറ്റുക', analyzing: 'പരിശോധിക്കുന്നു…', analyzingSubtext: 'ദയവായി കാത്തിരിക്കുക 🙏', cancel: 'റദ്ദാക്കുക', reassurance: 'ആശ്വാസം', whatItMeans: 'ഇതിനർത്ഥം', whatToDo: 'ഇപ്പോൾ എന്ത് ചെയ്യണം →', readAloud: '🔊 വായിച്ചു കേൾപ്പിക്കുക', stopReading: '⏸ നിർത്തുക', notifyFamily: '📞 കുടുംബത്തെ അറിയിക്കുക', tryAgain: '📸 വീണ്ടും ശ്രമിക്കുക', goHome: '🏠 തിരികെ പോകുക', scamWarningTitle: '⚠️ നിൽക്കുക - സുരക്ഷിതമല്ല', scamWarningSubtext: 'വിവരങ്ങൾ നൽകരുത്.', callBank: '📞 ബാങ്ക് ഹെൽപ്പ്‌ലൈൻ വിളിക്കുക', escalationTitle: 'എനിക്ക് ഉറപ്പില്ല', escalationSubtext: 'പകരം ഇത് ചെയ്യുക:', callFamily: '📞 കുടുംബത്തെ വിളിക്കുക', tryBetterPhoto: '📸 വ്യക്തമായ ഫോട്ടോ എടുക്കുക', notifyFamilyTitle: 'കുടുംബത്തെ അറിയിക്കുക', notifyFamilyDesc: 'നിങ്ങളുടെ സ്ക്രീൻഷോട്ട് പങ്കിടില്ല.', contactEmail: 'കുടുംബ ഇമെയിൽ', contactPhone: 'കുടുംബ ഫോൺ നമ്പർ', send: 'അയക്കുക', sending: 'അയക്കുന്നു…', notifySent: '✅ കുടുംബത്തെ അറിയിച്ചു.', notifyError: 'അയക്കാൻ കഴിഞ്ഞില്ല.', consentTitle: 'തുടങ്ങുന്നതിന് മുമ്പ്', consentText: 'നിങ്ങളുടെ സ്ക്രീൻഷോട്ടുകൾ സുരക്ഷിതമാണ്. അവ ഉടൻ ഇല്ലാതാക്കും.', consentButton: 'മനസ്സിലായി - തുടങ്ങാം', errorTitle: 'തെറ്റ് സംഭവിച്ചു', retry: 'വീണ്ടും ശ്രമിക്കുക', undomeTitle: 'ഇതാണ് സംഭവിച്ചത്', undomeSubtext: 'നിങ്ങൾ സുരക്ഷിതനാണ്.', bankHelpline: '1800-XXX-XXXX', confidenceLabel: 'വിശ്വാസം', imageTooLarge: 'ഫോട്ടോ വലുതാണ്.', invalidFile: 'ശരിയായ ഫോട്ടോ അപ്‌ലോഡ് ചെയ്യുക.', noInternet: 'ഇന്റർനെറ്റ് ഇല്ല.', highContrastMode: 'ഹൈ കോൺട്രാസ്റ്റ്' },
+  kn: { appName: 'Trustwise', tagline: 'ನಿಮ್ಮ ಸ್ಕ್ರೀನ್ ಸಹಾಯಕ 🙏', showScreen: '📸 ಸ್ಕ್ರೀನ್ ತೋರಿಸಿ', liveScreen: '🔴 ಲೈವ್ ಸ್ಕ್ರೀನ್ ಹಂಚಿಕೊಳ್ಳಿ', speak: '🎤 ಮಾತನಾಡಿ', undoMe: '↩ ನಾನು ಏನು ಮಾಡಿದೆ?', changeLanguage: 'ಭಾಷೆ ಬದಲಾಯಿಸಿ', analyzing: 'ಪರಿಶೀಲಿಸುತ್ತಿದ್ದೇವೆ…', analyzingSubtext: 'ದಯವಿಟ್ಟು ಕಾಯಿರಿ 🙏', cancel: 'ರದ್ದುಮಾಡಿ', reassurance: 'ಭರವಸೆ', whatItMeans: 'ಇದರ ಅರ್ಥ', whatToDo: 'ಈಗ ಏನು ಮಾಡಬೇಕು →', readAloud: '🔊 ಓದಿ ಹೇಳು', stopReading: '⏸ ನಿಲ್ಲಿಸಿ', notifyFamily: '📞 ಕುಟುಂಬಕ್ಕೆ ತಿಳಿಸಿ', tryAgain: '📸 ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ', goHome: '🏠 ಹಿಂದಕ್ಕೆ ಹೋಗಿ', scamWarningTitle: '⚠️ ನಿಲ್ಲಿ - ಇದು ಸುರಕ್ಷಿತವಲ್ಲ', scamWarningSubtext: 'ಯಾವುದೇ ಮಾಹಿತಿಯನ್ನು ನಮೂದಿಸಬೇಡಿ.', callBank: '📞 ಬ್ಯಾಂಕ್ ಹೆಲ್ಪ್‌ಲೈನ್ ಕರೆ ಮಾಡಿ', escalationTitle: 'ನನಗೆ ಖಚಿತವಿಲ್ಲ', escalationSubtext: 'ಇದರ ಬದಲಾಗಿ ಹೀಗೆ ಮಾಡಿ:', callFamily: '📞 ಕುಟುಂಬ ಸದಸ್ಯರಿಗೆ ಕರೆ ಮಾಡಿ', tryBetterPhoto: '📸 ಸ್ಪಷ್ಟವಾದ ಫೋಟೋ ತೆಗೆದುಕೊಳ್ಳಿ', notifyFamilyTitle: 'ಕುಟುಂಬಕ್ಕೆ ತಿಳಿಸಿ', notifyFamilyDesc: 'ನಿಮ್ಮ ಸ್ಕ್ರೀನ್‌ಶಾಟ್ ಹಂಚಿಕೊಳ್ಳುವುದಿಲ್ಲ.', contactEmail: 'ಕುಟುಂಬದ ಇಮೇಲ್', contactPhone: 'ಕುಟುಂಬದ ಫೋನ್ ನಂಬರ್', send: 'ಕಳುಹಿಸಿ', sending: 'ಕಳುಹಿಸುತ್ತಿದ್ದೇವೆ…', notifySent: '✅ ಕುಟುಂಬಕ್ಕೆ ಸಂದೇಶ ಕಳುಹಿಸಲಾಗಿದೆ.', notifyError: 'ಕಳುಹಿಸಲು ವಿಫಲವಾಗಿದೆ.', consentTitle: 'ಪ್ರಾರಂಭಿಸುವ ಮೊದಲು', consentText: 'ನಿಮ್ಮ ಸ್ಕ್ರೀನ್‌ಶಾಟ್‌ಗಳನ್ನು ತಕ್ಷಣವೇ ಅಳಿಸಲಾಗುತ್ತದೆ. ಎಂದಿಗೂ ಸೇವ್ ಆಗುವುದಿಲ್ಲ.', consentButton: 'ಅರ್ಥವಾಯಿತು - ಪ್ರಾರಂಭಿಸೋಣ', errorTitle: 'ಏನೋ ತಪ್ಪಾಗಿದೆ', retry: 'ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ', undomeTitle: 'ಇದೇ ಆಗಿದ್ದು', undomeSubtext: 'ನೀವು ಸುರಕ್ಷಿತವಾಗಿದ್ದೀರಿ.', bankHelpline: '1800-XXX-XXXX', confidenceLabel: 'ನಂಬಿಕೆ', imageTooLarge: 'ಫೋಟೋ ಗಾತ್ರ ಹೆಚ್ಚಿದೆ.', invalidFile: 'ದಯವಿಟ್ಟು ಸರಿಯಾದ ಫೋಟೋ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ.', noInternet: 'ಇಂಟರ್ನೆಟ್ ಇಲ್ಲ.', highContrastMode: 'ಹೈ ಕಾಂಟ್ರಾಸ್ಟ್' },
+  mr: { appName: 'Trustwise', tagline: 'तुमचा स्क्रीन सोबती 🙏', showScreen: '📸 स्क्रीन दाखवा', liveScreen: '🔴 लाईव्ह स्क्रीन शेअर करा', speak: '🎤 बोला', undoMe: '↩ मी काय केले?', changeLanguage: 'भाषा बदला', analyzing: 'तपासत आहे…', analyzingSubtext: 'कृपया प्रतीक्षा करा 🙏', cancel: 'रद्द करा', reassurance: 'आश्वासन', whatItMeans: 'याचा अर्थ', whatToDo: 'आता काय करावे →', readAloud: '🔊 वाचून दाखवा', stopReading: '⏸ थांबवा', notifyFamily: '📞 कुटुंबाला कळवा', tryAgain: '📸 पुन्हा प्रयत्न करा', goHome: '🏠 परत जा', scamWarningTitle: '⚠️ थांबा - हे सुरक्षित नाही', scamWarningSubtext: 'कोणतीही माहिती देऊ नका.', callBank: '📞 बँक हेल्पलाइनला कॉल करा', escalationTitle: 'मला खात्री नाही', escalationSubtext: 'त्याऐवजी हे करा:', callFamily: '📞 कुटुंबातील सदस्याला कॉल करा', tryBetterPhoto: '📸 स्पष्ट फोटो काढा', notifyFamilyTitle: 'कुटुंबाला कळवा', notifyFamilyDesc: 'तुमचा स्क्रीनशॉट शेअर केला जाणार नाही.', contactEmail: 'कुटुंबाचा ईमेल', contactPhone: 'कुटुंबाचा फोन नंबर', send: 'पाठवा', sending: 'पाठवत आहे…', notifySent: '✅ कुटुंबाला मेसेज पाठवला आहे.', notifyError: 'पाठवता आले नाही.', consentTitle: 'सुरू करण्यापूर्वी', consentText: 'तुमचे स्क्रीनशॉट लगेच हटवले जातील. सेव्ह केले जाणार नाहीत.', consentButton: 'समजले - सुरू करूया', errorTitle: 'काहीतरी चूक झाली', retry: 'पुन्हा प्रयत्न करा', undomeTitle: 'असे झाले आहे', undomeSubtext: 'तुम्ही सुरक्षित आहात.', bankHelpline: '1800-XXX-XXXX', confidenceLabel: 'विश्वास', imageTooLarge: 'फोटो खूप मोठा आहे.', invalidFile: 'कृपया योग्य फोटो अपलोड करा.', noInternet: 'इंटरनेट नाही.', highContrastMode: 'हाय कॉन्ट्रास्ट' },
+  bn: { appName: 'Trustwise', tagline: 'আপনার স্ক্রিন সাথী 🙏', showScreen: '📸 স্ক্রিন দেখান', liveScreen: '🔴 লাইভ স্ক্রিন শেয়ার করুন', speak: '🎤 কথা বলুন', undoMe: '↩ আমি কী করলাম?', changeLanguage: 'ভাষা পরিবর্তন করুন', analyzing: 'বিশ্লেষণ করছি…', analyzingSubtext: 'অনুগ্রহ করে অপেক্ষা করুন 🙏', cancel: 'বাতিল করুন', reassurance: 'আশ্বাস', whatItMeans: 'এর মানে কী', whatToDo: 'এখন কী করবেন →', readAloud: '🔊 পড়ে শোনান', stopReading: '⏸ থামুন', notifyFamily: '📞 পরিবারকে জানান', tryAgain: '📸 আবার চেষ্টা করুন', goHome: '🏠 ফিরে যান', scamWarningTitle: '⚠️ থামুন - এটি নিরাপদ নয়', scamWarningSubtext: 'কোনো তথ্য দেবেন না।', callBank: '📞 ব্যাঙ্ক হেল্পলাইনে কল করুন', escalationTitle: 'আমি নিশ্চিত নই', escalationSubtext: 'এর বদলে এটি করুন:', callFamily: '📞 পরিবারের কাউকে কল করুন', tryBetterPhoto: '📸 পরিষ্কার ছবি তুলুন', notifyFamilyTitle: 'পরিবারকে জানান', notifyFamilyDesc: 'আপনার স্ক্রিনশট শেয়ার করা হবে না।', contactEmail: 'পরিবারের ইমেল', contactPhone: 'পরিবারের ফোন নম্বর', send: 'পাঠান', sending: 'পাঠানো হচ্ছে…', notifySent: '✅ পরিবারকে মেসেজ পাঠানো হয়েছে।', notifyError: 'পাঠানো যায়নি।', consentTitle: 'শুরু করার আগে', consentText: 'আপনার স্ক্রিনশট সাথে সাথে মুছে ফেলা হবে। কখনো সেভ করা হবে না।', consentButton: 'বুঝেছি - শুরু করা যাক', errorTitle: 'কিছু ভুল হয়েছে', retry: 'আবার চেষ্টা করুন', undomeTitle: 'এই হয়েছে', undomeSubtext: 'আপনি নিরাপদ।', bankHelpline: '1800-XXX-XXXX', confidenceLabel: 'বিশ্বাস', imageTooLarge: 'ছবি খুব বড়।', invalidFile: 'অনুগ্রহ করে সঠিক ছবি আপলোড করুন।', noInternet: 'ইন্টারনেট নেই।', highContrastMode: 'হাই কন্ট্রাস্ট' }
 };
 
-/**
- * Returns the string map for the given language, falling back to English.
- */
 export function useLanguage(language) {
   return STRINGS[language] || STRINGS.en;
 }

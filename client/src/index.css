@@ -114,3 +114,7 @@
 }
 .thinking-dot:nth-child(2) { animation-delay: 0.2s; }
 .thinking-dot:nth-child(3) { animation-delay: 0.4s; }
+  
+/* High Contrast Mode */  
+.theme-high-contrast { background-color: #000000 !important; color: #ffff00 !important; }  
+.theme-high-contrast * { background-color: #000 !important; color: #ff0 !important; border-color: #ff0 !important; animation: none !important; transition: none !important; box-shadow: none !important; } 

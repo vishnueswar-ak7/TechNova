@@ -1,7 +1,9 @@
 import React from 'react';
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { AppProvider } from './context/AppContext.jsx';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { AppProvider, useApp } from './context/AppContext.jsx';
 
+import LoginScreen from './screens/LoginScreen.jsx';
 import HomeScreen from './screens/HomeScreen.jsx';
 import AnalyzingScreen from './screens/AnalyzingScreen.jsx';
 import ResultScreen from './screens/ResultScreen.jsx';
@@ -9,32 +11,56 @@ import ScamWarningScreen from './screens/ScamWarningScreen.jsx';
 import EscalationScreen from './screens/EscalationScreen.jsx';
 import UndoMeResultScreen from './screens/UndoMeResultScreen.jsx';
 
-/**
- * App.jsx — Root router using HashRouter.
- *
- * Hash-based routing (#/path) means:
- * - No server configuration needed for deep links
- * - Refresh on any route works correctly
- * - Forward/back navigation is safe
- *
- * All app state lives in AppContext (in-memory React state).
- * Navigating to /home always clears the previous analysis.
- */
-export default function App() {
+function ProtectedRoute({ children }) {
+  const { user, isAuthLoading } = useApp();
+  
+  if (isAuthLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-900 text-white">
+        <div className="animate-spin text-4xl">⏳</div>
+      </div>
+    );
+  }
+  
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+  
+  return children;
+}
+
+function AppContent() {
+  const { highContrast } = useApp();
+  
   return (
-    <AppProvider>
+    <div className={`min-h-screen w-full transition-colors ${highContrast ? 'theme-high-contrast' : ''}`}>
       <HashRouter>
         <Routes>
-          <Route path="/" element={<HomeScreen />} />
-          <Route path="/analyzing" element={<AnalyzingScreen />} />
-          <Route path="/result" element={<ResultScreen />} />
-          <Route path="/scam-warning" element={<ScamWarningScreen />} />
-          <Route path="/escalation" element={<EscalationScreen />} />
-          <Route path="/undome-result" element={<UndoMeResultScreen />} />
-          {/* Catch-all: redirect unknown routes to home */}
+          <Route path="/login" element={<LoginScreen />} />
+          
+          <Route path="/" element={<ProtectedRoute><HomeScreen /></ProtectedRoute>} />
+          <Route path="/analyzing" element={<ProtectedRoute><AnalyzingScreen /></ProtectedRoute>} />
+          <Route path="/result" element={<ProtectedRoute><ResultScreen /></ProtectedRoute>} />
+          <Route path="/scam-warning" element={<ProtectedRoute><ScamWarningScreen /></ProtectedRoute>} />
+          <Route path="/escalation" element={<ProtectedRoute><EscalationScreen /></ProtectedRoute>} />
+          <Route path="/undome-result" element={<ProtectedRoute><UndoMeResultScreen /></ProtectedRoute>} />
+          
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </HashRouter>
-    </AppProvider>
+    </div>
+  );
+}
+
+export default function App() {
+  // Use env var for Google Client ID (must match backend)
+  const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID || 'missing-client-id';
+
+  return (
+    <GoogleOAuthProvider clientId={clientId}>
+      <AppProvider>
+        <AppContent />
+      </AppProvider>
+    </GoogleOAuthProvider>
   );
 }

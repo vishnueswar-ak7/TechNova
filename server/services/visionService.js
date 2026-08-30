@@ -20,6 +20,11 @@ const LANGUAGE_NAMES = {
   en: 'English',
   ta: 'Tamil',
   hi: 'Hindi',
+  te: 'Telugu',
+  ml: 'Malayalam',
+  kn: 'Kannada',
+  mr: 'Marathi',
+  bn: 'Bengali',
 };
 
 // ── Prompt templates ──────────────────────────────────────────────────────

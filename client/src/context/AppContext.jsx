@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
+import { checkSession, logout as apiLogout } from '../services/api.js';
 
 /**
  * AppContext — global in-memory state for the ScreenSaathi app.
@@ -19,6 +20,23 @@ export function AppProvider({ children }) {
   const [consentGiven, setConsentGiven] = useState(false);
   const [familyContact, setFamilyContact] = useState({ email: '', phone: '' });
   const [error, setError] = useState(null);
+  const [highContrast, setHighContrast] = useState(false);
+  const [user, setUser] = useState(null);
+  const [isAuthLoading, setIsAuthLoading] = useState(true);
+
+  useEffect(() => {
+    async function initAuth() {
+      const { user } = await checkSession();
+      setUser(user);
+      setIsAuthLoading(false);
+    }
+    initAuth();
+  }, []);
+
+  const handleLogout = async () => {
+    await apiLogout();
+    setUser(null);
+  };
 
   /**
    * Resets all analysis state — call this when returning to HomeScreen
@@ -45,7 +63,13 @@ export function AppProvider({ children }) {
         setFamilyContact,
         error,
         setError,
+        highContrast,
+        setHighContrast,
         resetAnalysis,
+        user,
+        setUser,
+        handleLogout,
+        isAuthLoading,
       }}
     >
       {children}

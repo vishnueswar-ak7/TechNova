@@ -2,20 +2,21 @@ import React from 'react';
 import { useApp } from '../context/AppContext.jsx';
 
 const LANGUAGES = [
-  { code: 'en', label: 'English', flag: '🇬🇧' },
-  { code: 'ta', label: 'தமிழ்', flag: '🇮🇳' },
-  { code: 'hi', label: 'हिंदी', flag: '🇮🇳' },
+  { code: 'en', label: 'English' },
+  { code: 'hi', label: 'हिंदी' },
+  { code: 'ta', label: 'தமிழ்' },
+  { code: 'te', label: 'తెలుగు' },
+  { code: 'ml', label: 'മലയാളം' },
+  { code: 'kn', label: 'ಕನ್ನಡ' },
+  { code: 'mr', label: 'मराठी' },
+  { code: 'bn', label: 'বাংলা' },
 ];
 
-/**
- * LanguageSelector — Three large toggle buttons for language selection.
- * The selected language is highlighted. Switching language updates global context.
- */
 export default function LanguageSelector() {
   const { language, setLanguage } = useApp();
 
   return (
-    <div className="flex gap-2 w-full" role="group" aria-label="Select language">
+    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 w-full" role="group" aria-label="Select language">
       {LANGUAGES.map((lang) => {
         const isSelected = language === lang.code;
         return (
@@ -24,8 +25,8 @@ export default function LanguageSelector() {
             onClick={() => setLanguage(lang.code)}
             aria-pressed={isSelected}
             className={`
-              flex-1 flex flex-col items-center justify-center gap-1
-              min-h-[64px] rounded-2xl border-2 font-semibold
+              flex items-center justify-center
+              min-h-[56px] rounded-2xl border-2 font-semibold
               text-elder-sm transition-all duration-150 active:scale-95 select-none
               ${isSelected
                 ? 'bg-brand-600 border-brand-500 text-white shadow-lg shadow-brand-900/30'
@@ -33,7 +34,6 @@ export default function LanguageSelector() {
               }
             `}
           >
-            <span className="text-2xl">{lang.flag}</span>
             <span className="text-sm font-medium">{lang.label}</span>
           </button>
         );

@@ -1,47 +1,62 @@
 /**
  * notifyService.js
  *
- * Sends a plain-text summary to a family contact.
- * The original screenshot is NEVER included — only the AI-generated summary.
- *
- * MVP: Logs to console. Structured for easy Twilio/SendGrid/NodeMailer extension.
- * To add real email: install nodemailer and replace the stub below.
- * To add SMS: install twilio and replace the stub below.
+ * Sends family notifications via Nodemailer (using Ethereal email for testing).
  */
+
+const nodemailer = require('nodemailer');
+
+let testAccount = null;
+let transporter = null;
+
+async function setupTransporter() {
+  if (!testAccount) {
+    testAccount = await nodemailer.createTestAccount();
+    transporter = nodemailer.createTransport({
+      host: "smtp.ethereal.email",
+      port: 587,
+      secure: false, 
+      auth: {
+        user: testAccount.user,
+        pass: testAccount.pass,
+      },
+    });
+    console.log('[notifyService] Ethereal Email SMTP initialized');
+  }
+  return transporter;
+}
 
 /**
  * @param {Object} options
- * @param {string} options.summary - Plain text summary of the situation (never the image)
- * @param {string} [options.contactEmail] - Family member's email
- * @param {string} [options.contactPhone] - Family member's phone number
+ * @param {string} [options.contactEmail]
+ * @param {string} [options.contactPhone]
+ * @param {string} options.summary
  */
-async function sendFamilyNotification({ summary, contactEmail, contactPhone }) {
+async function sendNotification({ contactEmail, contactPhone, summary }) {
   const timestamp = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
-  const message = `[ScreenSaathi] Family Alert — ${timestamp}\n\n${summary}\n\nThis message was sent by ScreenSaathi on behalf of your family member.`;
+  const message = `[Trustwise] Family Alert — ${timestamp}\n\n${summary}\n\nThis message was sent by Trustwise on behalf of your family member.`;
 
-  // ── Console stub (replace with real integration) ──────────────────────
-  console.log('='.repeat(60));
-  console.log('[ScreenSaathi] FAMILY NOTIFICATION SENT');
-  if (contactEmail) console.log('To (email):', contactEmail);
-  if (contactPhone) console.log('To (phone):', contactPhone);
-  console.log('Message:\n', message);
-  console.log('='.repeat(60));
+  try {
+    const mailer = await setupTransporter();
+    
+    // We send an email if contactEmail is provided, otherwise we fallback to contactPhone as a dummy email.
+    const toAddress = contactEmail || `${contactPhone}@example.com`;
+    
+    const info = await mailer.sendMail({
+      from: '"Trustwise Alerts" <alert@trustwise.app>',
+      to: toAddress,
+      subject: "Trustwise Alert: Family Member Needs Help",
+      text: message,
+    });
 
-  // ── Extend here with SendGrid ──────────────────────────────────────────
-  // if (contactEmail && process.env.SENDGRID_API_KEY) {
-  //   const sgMail = require('@sendgrid/mail');
-  //   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-  //   await sgMail.send({ to: contactEmail, from: 'notify@screensaathi.app', subject: 'ScreenSaathi Family Alert', text: message });
-  // }
-
-  // ── Extend here with Twilio SMS ────────────────────────────────────────
-  // if (contactPhone && process.env.TWILIO_ACCOUNT_SID) {
-  //   const twilio = require('twilio');
-  //   const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
-  //   await client.messages.create({ body: message, from: process.env.TWILIO_FROM_NUMBER, to: contactPhone });
-  // }
-
-  return true;
+    console.log('[notifyService] Email sent successfully! ID:', info.messageId);
+    console.log('[notifyService] 🌐 Preview URL: %s', nodemailer.getTestMessageUrl(info));
+    
+    return { success: true, previewUrl: nodemailer.getTestMessageUrl(info) };
+  } catch (error) {
+    console.error('[notifyService] Failed to send notification:', error);
+    throw error;
+  }
 }
 
-module.exports = { sendFamilyNotification };
+module.exports = { sendNotification };
